@@ -17,6 +17,7 @@ jobs:
       run: |
         mkdir -p $HOME/.kube
         echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+        cat $HOME/.kube/config # Optional: To debug if the kubeconfig is set correctly
 
     - name: Install kubectl
       uses: azure/setup-kubectl@v1
@@ -24,7 +25,8 @@ jobs:
         version: 'latest'
 
     - name: Verify kubectl
-      run: kubectl cluster-info
+      run: |
+        kubectl cluster-info || exit 1
 
     - name: Update Kubernetes Deployment
       run: |
