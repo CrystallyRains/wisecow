@@ -1,4 +1,4 @@
-name: Deploy to K3s
+name: Deploy to Kind
 
 on:
   push:
@@ -16,12 +16,15 @@ jobs:
     - name: Set up Kubeconfig
       run: |
         mkdir -p $HOME/.kube
-        echo "${{ secrets.KUBECONFIG }}" | base64 -d > $HOME/.kube/config
+        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
 
     - name: Install kubectl
       uses: azure/setup-kubectl@v1
       with:
         version: 'latest'
+
+    - name: Verify kubectl
+      run: kubectl cluster-info
 
     - name: Update Kubernetes Deployment
       run: |
