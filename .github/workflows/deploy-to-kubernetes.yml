@@ -1,4 +1,4 @@
-name: Deploy to Kind
+name: Deploy to Kubernetes
 
 on:
   push:
@@ -16,8 +16,8 @@ jobs:
     - name: Set up Kubeconfig
       run: |
         mkdir -p $HOME/.kube
-        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
-        cat $HOME/.kube/config # Optional: To debug if the kubeconfig is set correctly
+        echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
+        cat $HOME/.kube/config # Optional: Debugging step to ensure kubeconfig is correct
 
     - name: Install kubectl
       uses: azure/setup-kubectl@v1
