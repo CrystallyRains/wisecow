@@ -33,14 +33,14 @@ jobs:
       with:
         version: 'latest'
 
-    - name: Verify kubectl
-      run: |
-        kubectl cluster-info || exit 1
+   
 
     - name: Apply Kubernetes Deployment
       run: |
         kubectl apply -f deployment.yml
+        kubectl apply -f service.yml
         kubectl get deployments --all-namespaces
+        kubectl get services --all-namespaces
 
     - name: Update Kubernetes Deployment
       run: |
