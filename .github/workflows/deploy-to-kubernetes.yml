@@ -32,7 +32,16 @@ jobs:
       with:
         version: 'latest'
 
-    - name: Apply Kubernetes Deployment
+    - name: Decode TLS Secrets
+      run: |
+        echo "${{ secrets.TLS_CERT }}" | base64 -d > tls.crt
+        echo "${{ secrets.TLS_KEY }}" | base64 -d > tls.key
+
+    - name: Apply Kubernetes Secrets
+      run: |
+        kubectl create secret tls my-tls-secret --cert=tls.crt --key=tls.key || echo "Secret already exists"
+
+    - name: Apply Kubernetes Configurations
       run: |
         kubectl apply -f deployment.yaml
         kubectl apply -f service.yaml
