@@ -37,13 +37,12 @@ jobs:
       run: |
         kubectl cluster-info || exit 1
 
-    - name: List Deployments
-      run: kubectl get deployments --all-namespaces
-
-    - name: Describe Deployment
-      run: kubectl describe deployment wisecow -n <namespace> || echo "Deployment not found"
+    - name: Apply Kubernetes Deployment
+      run: |
+        kubectl apply -f deployment.yml
+        kubectl get deployments --all-namespaces
 
     - name: Update Kubernetes Deployment
       run: |
-        kubectl set image deployment/wisecow wisecow=${{ secrets.DOCKER_HUB_USERNAME }}/wisecow:${{ github.sha }} -n <namespace>
-        kubectl rollout status deployment/wisecow -n <namespace>
+        kubectl set image deployment/wisecow wisecow=${{ secrets.DOCKER_HUB_USERNAME }}/wisecow:${{ github.sha }} -n default
+        kubectl rollout status deployment/wisecow -n default
