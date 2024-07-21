@@ -8,5 +8,5 @@ spec:
   ports:
     - protocol: TCP
       port: 443           # Expose port 443 for HTTPS
-      targetPort: 4499    # Your application listens on port 4499
+      targetPort: 4499    # application listens on port 4499
   type: ClusterIP
