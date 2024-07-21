@@ -16,7 +16,7 @@ jobs:
     - name: Set up Kubeconfig
       run: |
         mkdir -p $HOME/.kube
-        echo "${{ secrets.KUBECONFIG_CONTENT }}" > $HOME/.kube/config
+        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
         cat $HOME/.kube/config # Optional: To debug if the kubeconfig is set correctly
 
     - name: Install kubectl
