@@ -34,8 +34,8 @@ jobs:
 
     - name: Apply Kubernetes Deployment
       run: |
-        kubectl apply -f deployment.yml
-        kubectl apply -f service.yml
+        kubectl apply -f deployment.yaml
+        kubectl apply -f service.yaml
 
     - name: Update Kubernetes Deployment
       run: |
